@@ -1,0 +1,43 @@
+<form
+  id="chat-form"
+  class="relative flex"
+  hx-get="/chat/message"
+  hx-target="#messages"
+  hx-swap="beforeend scroll:bottom"
+  hx-on:htmx:after-request="if(event.target === this && event.detail.successful) this.reset()"
+>
+  <input
+    type="text"
+    placeholder="Write your message!"
+    class="w-full focus:outline-none focus:placeholder-neutral-400 text-slate-200 dark:text-slate-200 placeholder-neutral-100 bg-slate-800 dark:bg-slate-600 rounded-md px-2 py-3"
+    name="message"
+    autocomplete="off"
+    onkeyup="this.setCustomValidity(''); htmx.removeClass(this, 'border-red-500')"
+    hx-validate="true"
+    hx-on:htmx:validation:validate="
+        if(this.value === '') { 
+            this.setCustomValidity('This field is required.'); 
+            htmx.find('#chat-form').reportValidity(); 
+            htmx.addClass(this, 'border'); 
+            htmx.addClass(this, 'border-red-500'); 
+        }"
+  />
+  <div class="pl-2 items-center inset-y-0 sm:flex">
+    <button
+      hx-disabled-elt="this"
+      class="inline-flex items-center justify-center rounded-lg px-4 py-3 transition duration-500 ease-in-out text-slate-500 dark:text-slate-400 bg-slate-800 dark:bg-slate-300 hover:bg-blue-400 focus:outline-none"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        class="h-6 w-6 ml-2 transform rotate-90 fill-slate-100 dark:fill-slate-800"
+      >
+        <path
+          d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"
+        >
+        </path>
+      </svg>
+      <div class="htmx-indicator loader"></div>
+    </button>
+  </div>
+</form>
