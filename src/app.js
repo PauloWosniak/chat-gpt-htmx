@@ -7,8 +7,8 @@ const { engine } = require("express-handlebars");
 var cors = require("cors");
 require("dotenv/config");
 
-var indexRouter = require("./src/routes/index");
-var chatRouter = require("./src/routes/chat");
+var indexRouter = require("./routes/index");
+var chatRouter = require("./routes/chat");
 
 var app = express();
 
@@ -17,11 +17,11 @@ app.engine(
   engine({
     extname: ".hbs",
     defaultLayout: "main",
-    layoutsDir: path.join(__dirname, "src/views/layouts"),
-    partialsDir: [path.join(__dirname, "src/views/partials")],
+    layoutsDir: path.join(__dirname, "./views/layouts"),
+    partialsDir: [path.join(__dirname, "./views/partials")],
   })
 );
-app.set("views", path.join(__dirname, "src/views"));
+app.set("views", path.join(__dirname, "./views"));
 app.set("view engine", "hbs");
 
 app.use(cors());
@@ -29,7 +29,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "../public")));
 
 app.use("/", indexRouter);
 app.use("/chat", chatRouter);
