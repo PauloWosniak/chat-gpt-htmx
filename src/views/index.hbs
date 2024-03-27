@@ -2,7 +2,9 @@
     <div class="md:container md:mx-auto flex-1 p-2 sm:p-6 justify-end flex flex-col h-screen font-lg">
         <div id="messages"
             class="flex flex-col space-y-4 p-3 overflow-y-auto scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch">
+
         </div>
+        <span id="indicator" class="text-neutral-100 pb-2 pl-2 htmx-indicator">Geppetto is typing...</span>
         <div class="border-t border-neutral-300 dark:border-neutral-600 px-4 pt-4 mb-2 sm:mb-0">
             {{> chat-form}}
         </div>
